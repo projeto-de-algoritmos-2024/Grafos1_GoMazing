@@ -1,6 +1,7 @@
 package algorithms
 
 import (
+	"fmt"
 	"math/rand"
 	"time"
 )
@@ -14,6 +15,10 @@ type Maze struct {
 type Cell struct {
 	visited bool
 	walls   [4]bool // top, right, bottom, left
+}
+
+type DisjointSets struct {
+	parent, rank []int
 }
 
 func NewMaze(width, height int) *Maze {
@@ -127,4 +132,42 @@ func (m *Maze) getNeighbors(x, y int) [][2]int {
 		}
 	}
 	return neighbors
+}
+
+func (m *Maze) coordToIndex(x, y int) int {
+	return x*m.width + y
+}
+
+func (m *Maze) indexToCoord(index int) (int, int) {
+	return index / m.width, index % m.width
+}
+
+func (m *Maze) Print() {
+	for i := 0; i < m.height; i++ {
+		// Print the top walls
+		for j := 0; j < m.width; j++ {
+			if m.grid[i][j].walls[0] {
+				fmt.Print("+---")
+			} else {
+				fmt.Print("+   ")
+			}
+		}
+		fmt.Println("+")
+
+		// Print the left walls and spaces
+		for j := 0; j < m.width; j++ {
+			if m.grid[i][j].walls[3] {
+				fmt.Print("|   ")
+			} else {
+				fmt.Print("    ")
+			}
+		}
+		fmt.Println("|")
+	}
+
+	// Print the bottom walls
+	for j := 0; j < m.width; j++ {
+		fmt.Print("+---")
+	}
+	fmt.Println("+")
 }

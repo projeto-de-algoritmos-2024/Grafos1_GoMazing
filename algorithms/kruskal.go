@@ -8,9 +8,12 @@ func (m *Maze) GenerateKruskal() {
 		wall := walls[m.rng.Intn(len(walls))]
 		cell1, cell2 := m.getCellsSeparatedByWall(wall)
 
-		if sets.find(cell1) != sets.find(cell2) {
+		index1 := m.coordToIndex(cell1[0], cell1[1])
+		index2 := m.coordToIndex(cell2[0], cell2[1])
+
+		if sets.find(index1) != sets.find(index2) {
 			m.removeWall(cell1, cell2)
-			sets.union(cell1, cell2)
+			sets.union(index1, index2)
 		}
 		walls = remove(walls, wall)
 	}
