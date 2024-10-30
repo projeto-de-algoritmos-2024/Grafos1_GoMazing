@@ -51,6 +51,26 @@ func (m *Maze) GenerateDFS() {
 	}
 }
 
+func (m *Maze) GeneratePrim() {
+	// Implementation of Prim's Algorithm for Maze Generation
+}
+
+func (m *Maze) GenerateKruskal() {
+	// Implementation of Kruskal's Algorithm for Maze Generation
+}
+
+func (m *Maze) GenerateBFS() {
+	// Implementation of BFS for Maze Generation
+}
+
+func (m *Maze) SolveDFS() {
+	// Implementation of DFS for Maze Solving
+}
+
+func (m *Maze) SolveBFS() {
+	// Implementation of BFS for Maze Solving
+}
+
 func (m *Maze) getUnvisitedNeighbors(x, y int) [][2]int {
 	neighbors := [][2]int{}
 	directions := [][2]int{{-1, 0}, {1, 0}, {0, -1}, {0, 1}} // top, bottom, left, right
@@ -112,8 +132,59 @@ func (m *Maze) Print() {
 	fmt.Println("+")
 }
 
+func displayMenu() int {
+	fmt.Println("Choose an algorithm to generate the maze:")
+	fmt.Println("1. Depth-First Search (DFS)")
+	fmt.Println("2. Prim's Algorithm")
+	fmt.Println("3. Kruskal's Algorithm")
+	fmt.Println("4. Breadth-First Search (BFS)")
+	fmt.Println("Enter your choice:")
+	var choice int
+	fmt.Scan(&choice)
+	return choice
+}
+
+func displaySolveMenu() int {
+	fmt.Println("Choose an algorithm to solve the maze:")
+	fmt.Println("1. Depth-First Search (DFS)")
+	fmt.Println("2. Breadth-First Search (BFS)")
+	fmt.Println("Enter your choice:")
+	var choice int
+	fmt.Scan(&choice)
+	return choice
+}
+
 func main() {
+	choice := displayMenu()
 	maze := NewMaze(10, 10)
-	maze.GenerateDFS()
+
+	switch choice {
+	case 1:
+		maze.GenerateDFS()
+	case 2:
+		maze.GeneratePrim()
+	case 3:
+		maze.GenerateKruskal()
+	case 4:
+		maze.GenerateBFS()
+	default:
+		fmt.Println("Invalid choice")
+		return
+	}
+
+	maze.Print()
+
+	solveChoice := displaySolveMenu()
+
+	switch solveChoice {
+	case 1:
+		maze.SolveDFS()
+	case 2:
+		maze.SolveBFS()
+	default:
+		fmt.Println("Invalid choice")
+		return
+	}
+
 	maze.Print()
 }
