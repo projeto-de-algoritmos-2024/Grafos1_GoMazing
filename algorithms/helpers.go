@@ -10,6 +10,7 @@ type Maze struct {
 	width, height int
 	grid          [][]Cell
 	rng           *rand.Rand
+	Steps         [][]Cell // Change this to [][]Cell
 }
 
 type Cell struct {
@@ -27,6 +28,7 @@ func NewMaze(width, height int) *Maze {
 		height: height,
 		grid:   make([][]Cell, height),
 		rng:    rand.New(rand.NewSource(time.Now().UnixNano())),
+		Steps:  make([][]Cell, 0), // Initialize the steps
 	}
 	for i := range maze.grid {
 		maze.grid[i] = make([]Cell, width)
@@ -66,6 +68,9 @@ func (m *Maze) removeWall(current, next [2]int) {
 		m.grid[current[0]][current[1]].walls[1] = false
 		m.grid[next[0]][next[1]].walls[3] = false
 	}
+
+	gridCopy := m.copyGrid()
+	m.Steps = append(m.Steps, gridCopy...)
 }
 
 func (m *Maze) getAllWalls() [][2]int {
@@ -170,4 +175,15 @@ func (m *Maze) Print() {
 		fmt.Print("+---")
 	}
 	fmt.Println("+")
+}
+
+func (m *Maze) copyGrid() [][]Cell {
+	copy := make([][]Cell, len(m.grid))
+	for i := range m.grid {
+		copy[i] = make([]Cell, len(m.grid[i]))
+		for j := range m.grid[i] {
+			copy[i][j] = m.grid[i][j]
+		}
+	}
+	return copy
 }

@@ -6,6 +6,8 @@ const MazeApp = () => {
     const [width, setWidth] = useState(10);
     const [height, setHeight] = useState(10);
     const [maze, setMaze] = useState(null);
+    const [steps, setSteps] = useState([]);
+    const [currentStep, setCurrentStep] = useState(0);
 
     const generateMaze = async (algo) => {
         try {
@@ -14,10 +16,26 @@ const MazeApp = () => {
                 height,
                 algo
             });
-            setMaze(response.data);
+            setSteps(response.data);
+            setCurrentStep(0);
+            setMaze(response.data[0]);
+            animateMaze(response.data);
         } catch (error) {
             console.error('Error generating maze:', error);
         }
+    };
+
+    const animateMaze = (steps) => {
+        let stepIndex = 0;
+        const interval = setInterval(() => {
+            if (stepIndex < steps.length) {
+                setMaze(steps[stepIndex]);
+                setCurrentStep(stepIndex); // Update current step
+                stepIndex++;
+            } else {
+                clearInterval(interval);
+            }
+        }, 1500 / steps.length); // Adjust the speed as needed
     };
 
     const solveMaze = async (solveAlgo) => {
