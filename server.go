@@ -45,7 +45,7 @@ func generateMaze(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(maze.Steps) // Return the steps
+	json.NewEncoder(w).Encode(maze.Grid)
 }
 
 func solveMaze(w http.ResponseWriter, r *http.Request) {
@@ -79,7 +79,6 @@ func main() {
 	r.HandleFunc("/generate", generateMaze).Methods("POST")
 	r.HandleFunc("/solve", solveMaze).Methods("POST")
 
-	// Enable CORS for all origins
 	corsHandler := handlers.CORS(
 		handlers.AllowedOrigins([]string{"*"}),
 		handlers.AllowedMethods([]string{"GET", "POST", "OPTIONS"}),

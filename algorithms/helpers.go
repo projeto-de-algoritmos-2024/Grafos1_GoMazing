@@ -8,9 +8,9 @@ import (
 
 type Maze struct {
 	width, height int
-	grid          [][]Cell
+	Grid          [][]Cell
 	rng           *rand.Rand
-	Steps         [][]Cell // Change this to [][]Cell
+	Steps         [][][]Cell
 }
 
 type Cell struct {
@@ -26,14 +26,14 @@ func NewMaze(width, height int) *Maze {
 	maze := &Maze{
 		width:  width,
 		height: height,
-		grid:   make([][]Cell, height),
+		Grid:   make([][]Cell, height),
 		rng:    rand.New(rand.NewSource(time.Now().UnixNano())),
-		Steps:  make([][]Cell, 0), // Initialize the steps
+		Steps:  make([][][]Cell, 0),
 	}
-	for i := range maze.grid {
-		maze.grid[i] = make([]Cell, width)
-		for j := range maze.grid[i] {
-			maze.grid[i][j] = Cell{walls: [4]bool{true, true, true, true}}
+	for i := range maze.Grid {
+		maze.Grid[i] = make([]Cell, width)
+		for j := range maze.Grid[i] {
+			maze.Grid[i][j] = Cell{walls: [4]bool{true, true, true, true}}
 		}
 	}
 	return maze
@@ -45,7 +45,7 @@ func (m *Maze) getUnvisitedNeighbors(x, y int) [][2]int {
 
 	for _, d := range directions {
 		nx, ny := x+d[0], y+d[1]
-		if nx >= 0 && ny >= 0 && nx < m.height && ny < m.width && !m.grid[nx][ny].visited {
+		if nx >= 0 && ny >= 0 && nx < m.height && ny < m.width && !m.Grid[nx][ny].visited {
 			neighbors = append(neighbors, [2]int{nx, ny})
 		}
 	}
@@ -56,21 +56,19 @@ func (m *Maze) removeWall(current, next [2]int) {
 	dx, dy := next[0]-current[0], next[1]-current[1]
 
 	if dx == -1 {
-		m.grid[current[0]][current[1]].walls[0] = false
-		m.grid[next[0]][next[1]].walls[2] = false
+		m.Grid[current[0]][current[1]].walls[0] = false
+		m.Grid[next[0]][next[1]].walls[2] = false
 	} else if dx == 1 {
-		m.grid[current[0]][current[1]].walls[2] = false
-		m.grid[next[0]][next[1]].walls[0] = false
+		m.Grid[current[0]][current[1]].walls[2] = false
+		m.Grid[next[0]][next[1]].walls[0] = false
 	} else if dy == -1 {
-		m.grid[current[0]][current[1]].walls[3] = false
-		m.grid[next[0]][next[1]].walls[1] = false
+		m.Grid[current[0]][current[1]].walls[3] = false
+		m.Grid[next[0]][next[1]].walls[1] = false
 	} else if dy == 1 {
-		m.grid[current[0]][current[1]].walls[1] = false
-		m.grid[next[0]][next[1]].walls[3] = false
+		m.Grid[current[0]][current[1]].walls[1] = false
+		m.Grid[next[0]][next[1]].walls[3] = false
 	}
-
-	gridCopy := m.copyGrid()
-	m.Steps = append(m.Steps, gridCopy...)
+	m.Steps = append(m.Steps, m.copyGrid())
 }
 
 func (m *Maze) getAllWalls() [][2]int {
@@ -151,7 +149,7 @@ func (m *Maze) Print() {
 	for i := 0; i < m.height; i++ {
 		// Print the top walls
 		for j := 0; j < m.width; j++ {
-			if m.grid[i][j].walls[0] {
+			if m.Grid[i][j].walls[0] {
 				fmt.Print("+---")
 			} else {
 				fmt.Print("+   ")
@@ -161,7 +159,7 @@ func (m *Maze) Print() {
 
 		// Print the left walls and spaces
 		for j := 0; j < m.width; j++ {
-			if m.grid[i][j].walls[3] {
+			if m.Grid[i][j].walls[3] {
 				fmt.Print("|   ")
 			} else {
 				fmt.Print("    ")
@@ -178,11 +176,11 @@ func (m *Maze) Print() {
 }
 
 func (m *Maze) copyGrid() [][]Cell {
-	copy := make([][]Cell, len(m.grid))
-	for i := range m.grid {
-		copy[i] = make([]Cell, len(m.grid[i]))
-		for j := range m.grid[i] {
-			copy[i][j] = m.grid[i][j]
+	copy := make([][]Cell, len(m.Grid))
+	for i := range m.Grid {
+		copy[i] = make([]Cell, len(m.Grid[i]))
+		for j := range m.Grid[i] {
+			copy[i][j] = m.Grid[i][j]
 		}
 	}
 	return copy

@@ -1,13 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import NodeComponent from './NodeComponent';
 import './MazeApp.css';
 
 const MazeApp = () => {
     const [width, setWidth] = useState(10);
     const [height, setHeight] = useState(10);
-    const [maze, setMaze] = useState(null);
+    const [maze, setMaze] = useState([]);
     const [steps, setSteps] = useState([]);
     const [currentStep, setCurrentStep] = useState(0);
+    const [graph, setGraph] = useState([]);
+    const nodeSize = 20;
+    const executionTime = 10;
+
+    useEffect(() => {
+        populateGraph();
+    }, [width, height]);
+
+    const populateGraph = () => {
+        const columns = Math.trunc(window.innerWidth / nodeSize);
+        const rows = Math.trunc(window.innerHeight / nodeSize);
+        let graph = [];
+        let count = 0;
+
+        for (let j = 0; j < rows; j++) {
+            for (let i = 0; i < columns; i++) {
+                graph[count] = [];
+                if (j !== 0) {
+                    graph[count].push(count - columns);
+                }
+                if (j !== rows - 1) {
+                    graph[count].push(count + columns);
+                }
+                if (i !== 0) {
+                    graph[count].push(count - 1);
+                }
+                if (i !== columns - 1) {
+                    graph[count].push(count + 1);
+                }
+                count++;
+            }
+        }
+        setGraph(graph);
+    };
 
     const generateMaze = async (algo) => {
         try {
@@ -68,10 +103,22 @@ const MazeApp = () => {
                 <button onClick={() => generateMaze(3)}>Generate with Kruskal's</button>
                 <button onClick={() => generateMaze(4)}>Generate with BFS</button>
             </div>
-            {maze && (
+            {maze.length > 0 && (
                 <div className="maze-display">
                     <h2>Maze</h2>
-                    <pre>{JSON.stringify(maze, null, 2)}</pre>
+                    <div className="maze-grid" style={{ gridTemplateColumns: `repeat(${width}, ${nodeSize}px)` }}>
+                        {maze.map((row, rowIndex) =>
+                            Array.isArray(row) && row.map((cell, cellIndex) => (
+                                <NodeComponent
+                                    key={`${rowIndex}-${cellIndex}`}
+                                    nodeNumber={rowIndex * width + cellIndex}
+                                    size={nodeSize}
+                                    executionTime={executionTime}
+                                    walls={cell.walls}
+                                />
+                            ))
+                        )}
+                    </div>
                     <button onClick={() => solveMaze(1)}>Solve with DFS</button>
                     <button onClick={() => solveMaze(2)}>Solve with BFS</button>
                 </div>

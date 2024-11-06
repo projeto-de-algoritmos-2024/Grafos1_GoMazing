@@ -1,0 +1,51 @@
+.node {
+  position: relative;
+  background-color: #0054a9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+  border: 1px solid #000;
+}
+
+.node:hover {
+  background-color: azure;
+}
+
+.wall {
+  position: absolute;
+  background-color: black;
+}
+
+.wall.top {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+}
+
+.wall.right {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 2px;
+}
+
+.wall.bottom {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+}
+
+.wall.left {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 2px;
+}
+
+.wall.active {
+  background-color: black;
+}

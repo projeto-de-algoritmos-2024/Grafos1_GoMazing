@@ -2,7 +2,7 @@ package algorithms
 
 func (m *Maze) GenerateBFS() {
 	queue := [][2]int{{0, 0}}
-	m.grid[0][0].visited = true
+	m.Grid[0][0].visited = true
 
 	for len(queue) > 0 {
 		current := queue[0]
@@ -13,7 +13,7 @@ func (m *Maze) GenerateBFS() {
 			next := neighbors[m.rng.Intn(len(neighbors))]
 			m.removeWall(current, next)
 			queue = append(queue, next)
-			m.grid[next[0]][next[1]].visited = true
+			m.Grid[next[0]][next[1]].visited = true
 		}
 	}
 }
