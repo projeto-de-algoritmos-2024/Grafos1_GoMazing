@@ -4,8 +4,8 @@ import NodeComponent from './NodeComponent';
 import './MazeApp.css';
 
 const MazeApp = () => {
-    const [width, setWidth] = useState(10);
-    const [height, setHeight] = useState(10);
+    const [width, setWidth] = useState(Math.trunc(window.innerWidth / 20));
+    const [height, setHeight] = useState(Math.trunc(window.innerHeight / 20));
     const [maze, setMaze] = useState([]);
     const [steps, setSteps] = useState([]);
     const [currentStep, setCurrentStep] = useState(0);
@@ -16,6 +16,16 @@ const MazeApp = () => {
     useEffect(() => {
         populateGraph();
     }, [width, height]);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWidth(Math.trunc(window.innerWidth / nodeSize));
+            setHeight(Math.trunc(window.innerHeight / nodeSize));
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const populateGraph = () => {
         const columns = Math.trunc(window.innerWidth / nodeSize);
@@ -108,13 +118,13 @@ const MazeApp = () => {
                     <h2>Maze</h2>
                     <div className="maze-grid" style={{ gridTemplateColumns: `repeat(${width}, ${nodeSize}px)` }}>
                         {maze.map((row, rowIndex) =>
-                            Array.isArray(row) && row.map((cell, cellIndex) => (
+                            row.map((cell, cellIndex) => (
                                 <NodeComponent
                                     key={`${rowIndex}-${cellIndex}`}
                                     nodeNumber={rowIndex * width + cellIndex}
                                     size={nodeSize}
-                                    executionTime={executionTime}
                                     walls={cell.walls}
+                                    isActive={currentStep === rowIndex * width + cellIndex}
                                 />
                             ))
                         )}

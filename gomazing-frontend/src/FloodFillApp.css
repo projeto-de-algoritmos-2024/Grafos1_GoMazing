@@ -1,4 +1,4 @@
-.maze-app {
+.floodfill-app {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,15 +12,7 @@
   margin-bottom: 20px;
 }
 
-.controls label {
-  margin: 0 10px;
-}
-
-.buttons {
-  margin-bottom: 20px;
-}
-
-.buttons button {
+.controls button {
   margin: 10px;
   padding: 10px 20px;
   font-size: 16px;
@@ -32,25 +24,11 @@
   transition: background-color 0.3s;
 }
 
-.buttons button:hover {
+.controls button:hover {
   background-color: #0056b3;
 }
 
-.maze-display {
-  margin-top: 20px;
-  width: 100%;
-  height: 100%;
-}
-
-.maze-display pre {
-  text-align: left;
-  background-color: #f8f9fa;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #dee2e6;
-}
-
-.maze-grid {
+.floodfill-grid {
   display: grid;
   gap: 1px;
   width: 100%;

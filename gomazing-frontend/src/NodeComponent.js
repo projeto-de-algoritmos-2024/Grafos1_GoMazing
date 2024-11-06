@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './NodeComponent.css';
 
-const NodeComponent = ({ nodeNumber, size, executionTime, walls }) => {
+const NodeComponent = ({ nodeNumber, size, walls, isActive, onClick }) => {
     const [style, setStyle] = useState({});
     const [text, setText] = useState('');
 
@@ -11,8 +11,7 @@ const NodeComponent = ({ nodeNumber, size, executionTime, walls }) => {
     }, [nodeNumber, size]);
 
     return (
-        <div className="node" style={style} title={text}>
-            {nodeNumber}
+        <div className={`node ${isActive ? 'active' : ''}`} style={style} title={text} onClick={onClick}>
             <div className={`wall top ${walls[0] ? 'active' : ''}`}></div>
             <div className={`wall right ${walls[1] ? 'active' : ''}`}></div>
             <div className={`wall bottom ${walls[2] ? 'active' : ''}`}></div>
