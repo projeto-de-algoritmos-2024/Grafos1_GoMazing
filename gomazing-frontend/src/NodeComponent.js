@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './NodeComponent.css';
 
-const NodeComponent = ({ nodeNumber, size, walls, isActive, onClick }) => {
+const NodeComponent = ({ nodeNumber, size, walls = [true, true, true, true], isActive, onClick }) => {
     const [style, setStyle] = useState({});
     const [text, setText] = useState('');
 

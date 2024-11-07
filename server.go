@@ -74,10 +74,21 @@ func solveMaze(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(maze)
 }
 
+func generateNewMaze(w http.ResponseWriter, r *http.Request) {
+	cols := 24
+	rows := 18
+	maze := algorithms.NewMaze(cols, rows)
+	maze.Generate()
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(maze.Grid)
+}
+
 func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/generate", generateMaze).Methods("POST")
 	r.HandleFunc("/solve", solveMaze).Methods("POST")
+	r.HandleFunc("/new-maze", generateNewMaze).Methods("GET")
 
 	corsHandler := handlers.CORS(
 		handlers.AllowedOrigins([]string{"*"}),

@@ -11,11 +11,14 @@ type Maze struct {
 	Grid          [][]Cell
 	rng           *rand.Rand
 	Steps         [][][]Cell
+	Current       *Cell
+	Stack         []*Cell
 }
 
 type Cell struct {
+	X, Y    int
 	visited bool
-	walls   [4]bool // top, right, bottom, left
+	Walls   [4]bool // top, right, bottom, left
 }
 
 type DisjointSets struct {
@@ -33,9 +36,11 @@ func NewMaze(width, height int) *Maze {
 	for i := range maze.Grid {
 		maze.Grid[i] = make([]Cell, width)
 		for j := range maze.Grid[i] {
-			maze.Grid[i][j] = Cell{walls: [4]bool{true, true, true, true}}
+			maze.Grid[i][j] = Cell{X: j, Y: i, Walls: [4]bool{true, true, true, true}}
 		}
 	}
+	maze.Current = &maze.Grid[0][0]
+	maze.Stack = []*Cell{}
 	return maze
 }
 
@@ -56,17 +61,17 @@ func (m *Maze) removeWall(current, next [2]int) {
 	dx, dy := next[0]-current[0], next[1]-current[1]
 
 	if dx == -1 {
-		m.Grid[current[0]][current[1]].walls[0] = false
-		m.Grid[next[0]][next[1]].walls[2] = false
+		m.Grid[current[0]][current[1]].Walls[0] = false
+		m.Grid[next[0]][next[1]].Walls[2] = false
 	} else if dx == 1 {
-		m.Grid[current[0]][current[1]].walls[2] = false
-		m.Grid[next[0]][next[1]].walls[0] = false
+		m.Grid[current[0]][current[1]].Walls[2] = false
+		m.Grid[next[0]][next[1]].Walls[0] = false
 	} else if dy == -1 {
-		m.Grid[current[0]][current[1]].walls[3] = false
-		m.Grid[next[0]][next[1]].walls[1] = false
+		m.Grid[current[0]][current[1]].Walls[3] = false
+		m.Grid[next[0]][next[1]].Walls[1] = false
 	} else if dy == 1 {
-		m.Grid[current[0]][current[1]].walls[1] = false
-		m.Grid[next[0]][next[1]].walls[3] = false
+		m.Grid[current[0]][current[1]].Walls[1] = false
+		m.Grid[next[0]][next[1]].Walls[3] = false
 	}
 	m.Steps = append(m.Steps, m.copyGrid())
 }
@@ -149,7 +154,7 @@ func (m *Maze) Print() {
 	for i := 0; i < m.height; i++ {
 		// Print the top walls
 		for j := 0; j < m.width; j++ {
-			if m.Grid[i][j].walls[0] {
+			if m.Grid[i][j].Walls[0] {
 				fmt.Print("+---")
 			} else {
 				fmt.Print("+   ")
@@ -159,7 +164,7 @@ func (m *Maze) Print() {
 
 		// Print the left walls and spaces
 		for j := 0; j < m.width; j++ {
-			if m.Grid[i][j].walls[3] {
+			if m.Grid[i][j].Walls[3] {
 				fmt.Print("|   ")
 			} else {
 				fmt.Print("    ")
