@@ -5,16 +5,32 @@ import './MazeGeneration.css';
 const TILE_SIZE = 50;
 
 const MazeGeneration = () => {
-    const [maze, setMaze] = useState([]);
+    const [mazeSteps, setMazeSteps] = useState([]);
+    const [currentStep, setCurrentStep] = useState(0);
 
     useEffect(() => {
         generateMaze();
     }, []);
 
+    useEffect(() => {
+        if (mazeSteps.length > 0) {
+            const interval = setInterval(() => {
+                setCurrentStep((prevStep) => {
+                    if (prevStep < mazeSteps.length - 1) {
+                        return prevStep + 1;
+                    } else {
+                        clearInterval(interval);
+                        return prevStep;
+                    }
+                });
+            }, 15000 / mazeSteps.length);
+        }
+    }, [mazeSteps]);
+
     const generateMaze = async () => {
         try {
             const response = await axios.get('http://localhost:8080/new-maze');
-            setMaze(response.data);
+            setMazeSteps(response.data);
         } catch (error) {
             console.error('Error generating maze:', error);
         }
@@ -22,7 +38,7 @@ const MazeGeneration = () => {
 
     return (
         <div className="maze-container">
-            {maze.map((row, rowIndex) =>
+            {mazeSteps.length > 0 && mazeSteps[currentStep].map((row, rowIndex) =>
                 row.map((cell, cellIndex) => (
                     <div
                         key={`${rowIndex}-${cellIndex}`}

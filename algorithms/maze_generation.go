@@ -22,6 +22,7 @@ func (m *Maze) Generate() {
 		} else {
 			break
 		}
+		m.Steps = append(m.Steps, m.copyGrid())
 	}
 }
 
@@ -71,8 +72,4 @@ func (m *Maze) removeWalls(current, next *Cell) {
 		current.Walls[2] = false
 		next.Walls[0] = false
 	}
-}
-
-func (m *Maze) ToJSON() [][]Cell {
-	return m.Grid
 }
