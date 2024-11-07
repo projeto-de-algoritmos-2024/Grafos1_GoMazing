@@ -94,12 +94,6 @@ gomazing-frontend/
         [NodeComponent.js](http://_vscodecontentref_/25)
         [reportWebVitals.js](http://_vscodecontentref_/26)
         [setupTests.js](http://_vscodecontentref_/27)
-inspiration/
-    Grafos1_Onda-master/
-        .nojekyll
-        docs/
-        onda/
-        ...
 [README.md](http://_vscodecontentref_/28)
 [run.sh](http://_vscodecontentref_/29)
 [server.go](http://_vscodecontentref_/30)
