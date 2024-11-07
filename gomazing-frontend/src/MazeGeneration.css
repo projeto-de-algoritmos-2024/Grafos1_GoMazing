@@ -1,0 +1,15 @@
+.maze-container {
+  position: relative;
+  width: 1200px;
+  height: 900px;
+  background-color: #a6d5e2;
+}
+
+.cell {
+  position: absolute;
+  box-sizing: border-box;
+}
+
+.cell.visited {
+  background-color: #1e1e1e;
+}

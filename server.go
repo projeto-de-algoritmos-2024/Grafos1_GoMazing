@@ -81,7 +81,7 @@ func generateNewMaze(w http.ResponseWriter, r *http.Request) {
 	maze.Generate()
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(maze.Grid)
+	json.NewEncoder(w).Encode(maze.ToJSON())
 }
 
 func main() {

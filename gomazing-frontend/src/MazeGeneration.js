@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import NodeComponent from './NodeComponent';
-import './MazeApp.css';
+import './MazeGeneration.css';
+
+const TILE_SIZE = 50;
 
 const MazeGeneration = () => {
     const [maze, setMaze] = useState([]);
-    const nodeSize = 50;
 
     useEffect(() => {
         generateMaze();
@@ -21,21 +21,25 @@ const MazeGeneration = () => {
     };
 
     return (
-        <div className="maze-app">
-            <h1>Maze Generation</h1>
-            <div className="maze-grid" style={{ gridTemplateColumns: `repeat(${maze[0]?.length || 0}, ${nodeSize}px)` }}>
-                {maze.map((row, rowIndex) =>
-                    row.map((cell, cellIndex) => (
-                        <NodeComponent
-                            key={`${rowIndex}-${cellIndex}`}
-                            nodeNumber={rowIndex * (maze[0]?.length || 0) + cellIndex}
-                            size={nodeSize}
-                            walls={cell.walls}
-                            isActive={cell.visited}
-                        />
-                    ))
-                )}
-            </div>
+        <div className="maze-container">
+            {maze.map((row, rowIndex) =>
+                row.map((cell, cellIndex) => (
+                    <div
+                        key={`${rowIndex}-${cellIndex}`}
+                        className={`cell ${cell.visited ? 'visited' : ''}`}
+                        style={{
+                            top: rowIndex * TILE_SIZE,
+                            left: cellIndex * TILE_SIZE,
+                            width: TILE_SIZE,
+                            height: TILE_SIZE,
+                            borderTop: cell.Walls[0] ? '3px solid #1e4f5b' : 'none',
+                            borderRight: cell.Walls[1] ? '3px solid #1e4f5b' : 'none',
+                            borderBottom: cell.Walls[2] ? '3px solid #1e4f5b' : 'none',
+                            borderLeft: cell.Walls[3] ? '3px solid #1e4f5b' : 'none',
+                        }}
+                    ></div>
+                ))
+            )}
         </div>
     );
 };

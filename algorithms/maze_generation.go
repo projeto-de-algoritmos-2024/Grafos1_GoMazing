@@ -72,3 +72,7 @@ func (m *Maze) removeWalls(current, next *Cell) {
 		next.Walls[0] = false
 	}
 }
+
+func (m *Maze) ToJSON() [][]Cell {
+	return m.Grid
+}
