@@ -110,7 +110,6 @@ const MazeApp = () => {
             <div className="buttons">
                 <button onClick={() => generateMaze(1)}>Generate with DFS</button>
                 <button onClick={() => generateMaze(2)}>Generate with Prim's</button>
-                <button onClick={() => generateMaze(3)}>Generate with Kruskal's</button>
                 <button onClick={() => generateMaze(4)}>Generate with BFS</button>
             </div>
             {maze.length > 0 && (

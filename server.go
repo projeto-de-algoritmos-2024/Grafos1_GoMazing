@@ -16,10 +16,6 @@ type MazeRequest struct {
 	Algo   int `json:"algo"`
 }
 
-type SolveRequest struct {
-	Algo int `json:"algo"`
-}
-
 var maze *algorithms.Maze
 
 func generateMaze(w http.ResponseWriter, r *http.Request) {
@@ -32,53 +28,15 @@ func generateMaze(w http.ResponseWriter, r *http.Request) {
 	maze = algorithms.NewMaze(req.Width, req.Height)
 	switch req.Algo {
 	case 1:
-		maze.GenerateDFS()
+		maze.MazeGenerateDFS()
 	case 2:
-		maze.GeneratePrim()
+		maze.MazeGenerateBFS()
 	case 3:
-		maze.GenerateKruskal()
-	case 4:
-		maze.GenerateBFS()
+		maze.MazeGeneratePrim()
 	default:
 		http.Error(w, "Invalid algorithm choice", http.StatusBadRequest)
 		return
 	}
-
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(maze.Grid)
-}
-
-func solveMaze(w http.ResponseWriter, r *http.Request) {
-	var req SolveRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
-
-	if maze == nil {
-		http.Error(w, "Maze not generated", http.StatusBadRequest)
-		return
-	}
-
-	switch req.Algo {
-	case 1:
-		maze.SolveDFS()
-	case 2:
-		maze.SolveBFS()
-	default:
-		http.Error(w, "Invalid algorithm choice", http.StatusBadRequest)
-		return
-	}
-
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(maze)
-}
-
-func generateNewMaze(w http.ResponseWriter, r *http.Request) {
-	cols := 24
-	rows := 18
-	maze := algorithms.NewMaze(cols, rows)
-	maze.Generate()
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(maze.Steps)
@@ -87,8 +45,6 @@ func generateNewMaze(w http.ResponseWriter, r *http.Request) {
 func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/generate", generateMaze).Methods("POST")
-	r.HandleFunc("/solve", solveMaze).Methods("POST")
-	r.HandleFunc("/new-maze", generateNewMaze).Methods("GET")
 
 	corsHandler := handlers.CORS(
 		handlers.AllowedOrigins([]string{"*"}),

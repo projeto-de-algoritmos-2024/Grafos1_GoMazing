@@ -7,10 +7,11 @@ const TILE_SIZE = 50;
 const MazeGeneration = () => {
     const [mazeSteps, setMazeSteps] = useState([]);
     const [currentStep, setCurrentStep] = useState(0);
+    const [algorithm, setAlgorithm] = useState(1); // Default to DFS
 
     useEffect(() => {
         generateMaze();
-    }, []);
+    }, [algorithm]);
 
     useEffect(() => {
         if (mazeSteps.length > 0) {
@@ -29,7 +30,12 @@ const MazeGeneration = () => {
 
     const generateMaze = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/new-maze');
+            const response = await axios.post('http://localhost:8080/generate', {
+                width: 24,
+                height: 18,
+                algo: algorithm
+            });
+            console.log("Maze generation response:", response.data); // Debugging line
             setMazeSteps(response.data);
         } catch (error) {
             console.error('Error generating maze:', error);
@@ -38,8 +44,13 @@ const MazeGeneration = () => {
 
     return (
         <div className="maze-container">
+            <div className="controls">
+                <button onClick={() => setAlgorithm(1)}>Generate with DFS</button>
+                <button onClick={() => setAlgorithm(2)}>Generate with BFS</button>
+                <button onClick={() => setAlgorithm(3)}>Generate with Prim's</button>
+            </div>
             {mazeSteps.length > 0 && mazeSteps[currentStep].map((row, rowIndex) =>
-                row.map((cell, cellIndex) => (
+                Array.isArray(row) ? row.map((cell, cellIndex) => (
                     <div
                         key={`${rowIndex}-${cellIndex}`}
                         className={`cell ${cell.visited ? 'visited' : ''}`}
@@ -54,7 +65,7 @@ const MazeGeneration = () => {
                             borderLeft: cell.Walls[3] ? '3px solid #1e4f5b' : 'none',
                         }}
                     ></div>
-                ))
+                )) : null
             )}
         </div>
     );

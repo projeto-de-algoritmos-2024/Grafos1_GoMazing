@@ -2,25 +2,58 @@ package algorithms
 
 import (
 	"math/rand"
-	"time"
 )
 
-func (m *Maze) Generate() {
-	rand.Seed(time.Now().UnixNano())
+func (m *Maze) MazeGenerateDFS() {
+	stack := []*Cell{m.Current}
 	m.Current.visited = true
 
-	for {
-		next := m.checkNeighbors(m.Current)
+	for len(stack) > 0 {
+		current := stack[len(stack)-1]
+		next := m.checkNeighbors(current)
 		if next != nil {
 			next.visited = true
-			m.Stack = append(m.Stack, m.Current)
-			m.removeWalls(m.Current, next)
-			m.Current = next
-		} else if len(m.Stack) > 0 {
-			m.Current = m.Stack[len(m.Stack)-1]
-			m.Stack = m.Stack[:len(m.Stack)-1]
+			stack = append(stack, next)
+			m.removeWalls(current, next)
 		} else {
-			break
+			stack = stack[:len(stack)-1]
+		}
+		m.Steps = append(m.Steps, m.copyGrid())
+	}
+}
+
+func (m *Maze) MazeGenerateBFS() {
+	queue := []*Cell{m.Current}
+	m.Current.visited = true
+
+	for len(queue) > 0 {
+		current := queue[0]
+		queue = queue[1:]
+		next := m.checkNeighbors(current)
+		if next != nil {
+			next.visited = true
+			queue = append(queue, next)
+			m.removeWalls(current, next)
+		}
+		m.Steps = append(m.Steps, m.copyGrid())
+	}
+}
+
+func (m *Maze) MazeGeneratePrim() {
+	walls := [][2]int{{0, 0}}
+	m.Grid[0][0].visited = true
+
+	for len(walls) > 0 {
+		current := walls[m.rng.Intn(len(walls))]
+		neighbors := m.getUnvisitedNeighbors(current[0], current[1])
+
+		if len(neighbors) > 0 {
+			next := neighbors[m.rng.Intn(len(neighbors))]
+			m.removeWall(current, next)
+			m.Grid[next[0]][next[1]].visited = true
+			walls = append(walls, next)
+		} else {
+			walls = remove(walls, current)
 		}
 		m.Steps = append(m.Steps, m.copyGrid())
 	}

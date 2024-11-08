@@ -44,6 +44,42 @@ func NewMaze(width, height int) *Maze {
 	return maze
 }
 
+func (m *Maze) getAllWalls() [][2][2]int {
+	var walls [][2][2]int
+	for y := 0; y < m.height; y++ {
+		for x := 0; x < m.width; x++ {
+			if x < m.width-1 {
+				walls = append(walls, [2][2]int{{x, y}, {x + 1, y}})
+			}
+			if y < m.height-1 {
+				walls = append(walls, [2][2]int{{x, y}, {x, y + 1}})
+			}
+		}
+	}
+	return walls
+}
+
+func (m *Maze) getCellsSeparatedByWall(wall [2][2]int) ([2]int, [2]int) {
+	return wall[0], wall[1]
+}
+
+func (m *Maze) GenerateMaze(x, y int) {
+	m.Grid[x][y].visited = true
+	m.Steps = append(m.Steps, m.copyGrid()) // Record each step for visualization
+
+	for {
+		neighbors := m.getUnvisitedNeighbors(x, y)
+		if len(neighbors) == 0 {
+			break // No unvisited neighbors, backtracking stops
+		}
+
+		// Randomly pick an unvisited neighbor
+		next := neighbors[m.rng.Intn(len(neighbors))]
+		m.removeWall([2]int{x, y}, next)
+		m.GenerateMaze(next[0], next[1]) // Recursively visit next cell
+	}
+}
+
 func (m *Maze) getUnvisitedNeighbors(x, y int) [][2]int {
 	neighbors := [][2]int{}
 	directions := [][2]int{{-1, 0}, {1, 0}, {0, -1}, {0, 1}} // top, bottom, left, right
@@ -60,6 +96,7 @@ func (m *Maze) getUnvisitedNeighbors(x, y int) [][2]int {
 func (m *Maze) removeWall(current, next [2]int) {
 	dx, dy := next[0]-current[0], next[1]-current[1]
 
+	// Adjust the walls based on position
 	if dx == -1 {
 		m.Grid[current[0]][current[1]].Walls[0] = false
 		m.Grid[next[0]][next[1]].Walls[2] = false
@@ -73,17 +110,48 @@ func (m *Maze) removeWall(current, next [2]int) {
 		m.Grid[current[0]][current[1]].Walls[1] = false
 		m.Grid[next[0]][next[1]].Walls[3] = false
 	}
-	m.Steps = append(m.Steps, m.copyGrid())
+	m.Steps = append(m.Steps, m.copyGrid()) // Save each step
 }
 
-func (m *Maze) getAllWalls() [][2]int {
-	// Implementation to get all walls
-	return nil
+func (m *Maze) copyGrid() [][]Cell {
+	copy := make([][]Cell, len(m.Grid))
+	for i := range m.Grid {
+		copy[i] = make([]Cell, len(m.Grid[i]))
+		for j := range m.Grid[i] {
+			copy[i][j] = m.Grid[i][j]
+		}
+	}
+	return copy
 }
 
-func (m *Maze) getCellsSeparatedByWall(wall [2]int) ([2]int, [2]int) {
-	// Implementation to get cells separated by a wall
-	return [2]int{}, [2]int{}
+func (m *Maze) Print() {
+	for i := 0; i < m.height; i++ {
+		// Print the top walls
+		for j := 0; j < m.width; j++ {
+			if m.Grid[i][j].Walls[0] {
+				fmt.Print("+---")
+			} else {
+				fmt.Print("+   ")
+			}
+		}
+		fmt.Println("+")
+
+		// Print the left walls and spaces
+		for j := 0; j < m.width; j++ {
+			if m.Grid[i][j].Walls[3] {
+				fmt.Print("|   ")
+			} else {
+				fmt.Print("    ")
+			}
+		}
+		fmt.Println("|")
+	}
+
+	// Print the bottom walls
+	for j := 0; j < m.width; j++ {
+		fmt.Print("+---")
+	}
+	fmt.Println("+")
 }
 
 func makeDisjointSets(width, height int) *DisjointSets {
@@ -148,45 +216,4 @@ func (m *Maze) coordToIndex(x, y int) int {
 
 func (m *Maze) indexToCoord(index int) (int, int) {
 	return index / m.width, index % m.width
-}
-
-func (m *Maze) Print() {
-	for i := 0; i < m.height; i++ {
-		// Print the top walls
-		for j := 0; j < m.width; j++ {
-			if m.Grid[i][j].Walls[0] {
-				fmt.Print("+---")
-			} else {
-				fmt.Print("+   ")
-			}
-		}
-		fmt.Println("+")
-
-		// Print the left walls and spaces
-		for j := 0; j < m.width; j++ {
-			if m.Grid[i][j].Walls[3] {
-				fmt.Print("|   ")
-			} else {
-				fmt.Print("    ")
-			}
-		}
-		fmt.Println("|")
-	}
-
-	// Print the bottom walls
-	for j := 0; j < m.width; j++ {
-		fmt.Print("+---")
-	}
-	fmt.Println("+")
-}
-
-func (m *Maze) copyGrid() [][]Cell {
-	copy := make([][]Cell, len(m.Grid))
-	for i := range m.Grid {
-		copy[i] = make([]Cell, len(m.Grid[i]))
-		for j := range m.Grid[i] {
-			copy[i][j] = m.Grid[i][j]
-		}
-	}
-	return copy
 }

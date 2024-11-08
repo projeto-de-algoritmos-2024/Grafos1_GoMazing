@@ -74,7 +74,6 @@ const FloodFillApp = () => {
             <div className="controls">
                 <button onClick={() => generateMaze(1)}>Generate Maze with DFS</button>
                 <button onClick={() => generateMaze(2)}>Generate Maze with Prim's</button>
-                <button onClick={() => generateMaze(3)}>Generate Maze with Kruskal's</button>
                 <button onClick={() => generateMaze(4)}>Generate Maze with BFS</button>
             </div>
             <div className="floodfill-grid" style={{ gridTemplateColumns: `repeat(${width}, ${nodeSize}px)` }}>

@@ -57,7 +57,7 @@ npm install
 ```
 
 ### Funcionalidades
-- Maze Generation: Gere labirintos usando diferentes algoritmos (DFS, Prim's, Kruskal's, BFS).
+- Maze Generation: Gere labirintos usando diferentes algoritmos (DFS, Prim's, BFS).
 - Flood Fill: Visualize o algoritmo de preenchimento de área em ação.
 
 ### Estrutura do projeto
@@ -67,7 +67,6 @@ algorithms/
     [bfs.go](http://_vscodecontentref_/2)
     [dfs.go](http://_vscodecontentref_/3)
     [helpers.go](http://_vscodecontentref_/4)
-    [kruskal.go](http://_vscodecontentref_/5)
     [prim.go](http://_vscodecontentref_/6)
     [solve.go](http://_vscodecontentref_/7)
 [go.mod](http://_vscodecontentref_/8)
