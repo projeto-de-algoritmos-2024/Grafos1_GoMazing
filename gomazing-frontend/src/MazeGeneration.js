@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import './MazeGeneration.css';
 
@@ -9,11 +9,25 @@ const MazeGeneration = () => {
     const [currentStep, setCurrentStep] = useState(0);
     const [algorithm, setAlgorithm] = useState(null); // No default algorithm
 
+    const generateMaze = useCallback(async () => {
+        try {
+            const response = await axios.post('http://localhost:8080/generate', {
+                width: 60,
+                height: 30,
+                algo: algorithm
+            });
+            console.log("Maze generation response:", response.data); // Debugging line
+            setMazeSteps(response.data);
+        } catch (error) {
+            console.error('Error generating maze:', error);
+        }
+    }, [algorithm]);
+
     useEffect(() => {
         if (algorithm !== null) {
             generateMaze();
         }
-    }, [algorithm]);
+    }, [algorithm, generateMaze]);
 
     useEffect(() => {
         if (mazeSteps.length > 0) {
@@ -30,20 +44,6 @@ const MazeGeneration = () => {
             }, intervalTime);
         }
     }, [mazeSteps, algorithm]);
-
-    const generateMaze = async () => {
-        try {
-            const response = await axios.post('http://localhost:8080/generate', {
-                width: 60,
-                height: 30,
-                algo: algorithm
-            });
-            console.log("Maze generation response:", response.data); // Debugging line
-            setMazeSteps(response.data);
-        } catch (error) {
-            console.error('Error generating maze:', error);
-        }
-    };
 
     return (
         <div className="maze-container">

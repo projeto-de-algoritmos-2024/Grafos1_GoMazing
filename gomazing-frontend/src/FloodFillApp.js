@@ -11,6 +11,16 @@ const FloodFillApp = () => {
     const nodeSize = 20;
 
     useEffect(() => {
+        const initializeGrid = () => {
+            const newGrid = Array.from({ length: height }, () =>
+                Array.from({ length: width }, () => ({
+                    filled: false,
+                    walls: [true, true, true, true],
+                }))
+            );
+            setGrid(newGrid);
+        };
+
         initializeGrid();
     }, [width, height]);
 
@@ -23,16 +33,6 @@ const FloodFillApp = () => {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
-
-    const initializeGrid = () => {
-        const newGrid = Array.from({ length: height }, () =>
-            Array.from({ length: width }, () => ({
-                filled: false,
-                walls: [true, true, true, true],
-            }))
-        );
-        setGrid(newGrid);
-    };
 
     const generateMaze = async (algo) => {
         try {

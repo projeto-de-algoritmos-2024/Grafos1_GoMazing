@@ -7,11 +7,8 @@ const MazeApp = () => {
     const [width, setWidth] = useState(Math.trunc(window.innerWidth / 20));
     const [height, setHeight] = useState(Math.trunc(window.innerHeight / 20));
     const [maze, setMaze] = useState([]);
-    const [steps, setSteps] = useState([]);
     const [currentStep, setCurrentStep] = useState(0);
-    const [graph, setGraph] = useState([]);
     const nodeSize = 20;
-    const executionTime = 10;
 
     useEffect(() => {
         populateGraph();
@@ -51,7 +48,6 @@ const MazeApp = () => {
                 count++;
             }
         }
-        setGraph(graph);
     };
 
     const generateMaze = async (algo) => {
@@ -61,9 +57,8 @@ const MazeApp = () => {
                 height,
                 algo
             });
-            setSteps(response.data);
-            setCurrentStep(0);
             setMaze(response.data[0]);
+            setCurrentStep(0);
             animateMaze(response.data);
         } catch (error) {
             console.error('Error generating maze:', error);
@@ -75,12 +70,12 @@ const MazeApp = () => {
         const interval = setInterval(() => {
             if (stepIndex < steps.length) {
                 setMaze(steps[stepIndex]);
-                setCurrentStep(stepIndex); // Update current step
+                setCurrentStep(stepIndex);
                 stepIndex++;
             } else {
                 clearInterval(interval);
             }
-        }, 1500 / steps.length); // Adjust the speed as needed
+        }, 1500 / steps.length);
     };
 
     const solveMaze = async (solveAlgo) => {
@@ -100,11 +95,11 @@ const MazeApp = () => {
             <div className="controls">
                 <label>
                     Width:
-                    <input type="number" value={width} onChange={(e) => setWidth(e.target.value)} />
+                    <input type="number" value={width} onChange={(e) => setWidth(Number(e.target.value))} />
                 </label>
                 <label>
                     Height:
-                    <input type="number" value={height} onChange={(e) => setHeight(e.target.value)} />
+                    <input type="number" value={height} onChange={(e) => setHeight(Number(e.target.value))} />
                 </label>
             </div>
             <div className="buttons">
