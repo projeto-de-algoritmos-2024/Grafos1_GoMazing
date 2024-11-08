@@ -1,7 +1,7 @@
 .maze-container {
   position: relative;
   width: 1200px;
-  height: 900px;
+  height: 600px;
   background-color: #a6d5e2;
 }
 
@@ -32,4 +32,9 @@
 
 .controls button:hover {
   background-color: #0056b3;
+}
+
+.controls button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
 }
