@@ -6,8 +6,23 @@
     <title>Lista de Exercícios do LeetCode</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #333;
         }
         table {
             width: 100%;
@@ -18,7 +33,7 @@
             border: 1px solid #ddd;
         }
         th, td {
-            padding: 8px;
+            padding: 12px;
             text-align: left;
         }
         th {
@@ -27,64 +42,101 @@
         img {
             max-width: 100%;
             height: auto;
+            display: block;
+            margin: 10px 0;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            margin: 10px 0;
+        }
+        ul li a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        ul li a:hover {
+            text-decoration: underline;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ddd;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #333;
+            color: #fff;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <h1>Lista de Exercícios do LeetCode</h1>
-    <p><strong>Número da Lista</strong>: 57<br>
-    <strong>Conteúdo da Disciplina</strong>: Grafos 1</p>
+    <div class="container">
+        <h1>Lista de Exercícios do LeetCode</h1>
+        <p><strong>Número da Lista</strong>: 57<br>
+        <strong>Conteúdo da Disciplina</strong>: Grafos 1</p>
 
-    <h2>Alunos</h2>
-    <table>
-        <tr>
-            <th>Matrícula</th>
-            <th>Aluno</th>
-        </tr>
-        <tr>
-            <td>19/0139323</td>
-            <td>Pedro Menezes Rodiguero</td>
-        </tr>
-    </table>
+        <h2>Alunos</h2>
+        <table>
+            <tr>
+                <th>Matrícula</th>
+                <th>Aluno</th>
+            </tr>
+            <tr>
+                <td>19/0139323</td>
+                <td>Pedro Menezes Rodiguero</td>
+            </tr>
+        </table>
 
-    <h2>Sobre</h2>
-    <p>Para desenvolver o conteúdo abordado no tópico de Grafos1, resolvi 5 exercícios do LeetCode, sendo eles, 4 de nível difícil e 1 de nível médio.</p>
+        <h2>Sobre</h2>
+        <p>Para desenvolver o conteúdo abordado no tópico de Grafos1, resolvi 5 exercícios do LeetCode, sendo eles, 4 de nível difícil e 1 de nível médio.</p>
 
-    <h2>Screenshots</h2>
-    <ul>
-        <li><a href="https://leetcode.com/problems/maximum-star-sum-of-a-graph/description/">2497 (Médio) - Maximum star sum of a graph</a></li>
-        <img src="https://github.com/projeto-de-algoritmos-2024/Grafos1_GoMazing/blob/leetcode/leetcode/screenshots/2497_accepted.png" alt="Maximum star sum of a graph">
-        <li><a href="https://leetcode.com/problems/count-visited-nodes-in-a-directed-graph/">2876 (Difícil) - Count visited nodes in a directed graph</a></li>
-        <img src="https://github.com/projeto-de-algoritmos-2024/Grafos1_GoMazing/blob/leetcode/leetcode/screenshots/2876_accepted.png" alt="Count visited nodes in a directed graph">
-        <li><a href="https://leetcode.com/problems/longest-cycle-in-a-graph/">2360 (Difícil) - Longest cycle in a graph</a></li>
-        <img src="https://github.com/projeto-de-algoritmos-2024/Grafos1_GoMazing/blob/leetcode/leetcode/screenshots/2360_accepted.png" alt="Longest cycle in a graph">
-        <li><a href="https://leetcode.com/problems/redundant-connection-ii/">685 (Difícil) - Redundant connection II</a></li>
-        <img src="https://github.com/projeto-de-algoritmos-2024/Grafos1_GoMazing/blob/leetcode/leetcode/screenshots/685_accepted.png" alt="Redundant connection II">
-        <li><a href="https://leetcode.com/problems/freedom-trail/">514 (Difícil) - Freedom trail</a></li>
-        <img src="https://github.com/projeto-de-algoritmos-2024/Grafos1_GoMazing/blob/leetcode/leetcode/screenshots/514_accepted.png" alt="Freedom trail">
-    </ul>
+        <h2>Screenshots</h2>
+        <ul>
+            <li><a href="https://leetcode.com/problems/maximum-star-sum-of-a-graph/description/">2497 (Médio) - Maximum star sum of a graph</a></li>
+            <img src="https://github.com/projeto-de-algoritmos-2024/Grafos1_GoMazing/blob/leetcode/leetcode/screenshots/2497_accepted.png" alt="Maximum star sum of a graph">
+            <li><a href="https://leetcode.com/problems/count-visited-nodes-in-a-directed-graph/">2876 (Difícil) - Count visited nodes in a directed graph</a></li>
+            <img src="https://github.com/projeto-de-algoritmos-2024/Grafos1_GoMazing/blob/leetcode/leetcode/screenshots/2876_accepted.png" alt="Count visited nodes in a directed graph">
+            <li><a href="https://leetcode.com/problems/longest-cycle-in-a-graph/">2360 (Difícil) - Longest cycle in a graph</a></li>
+            <img src="https://github.com/projeto-de-algoritmos-2024/Grafos1_GoMazing/blob/leetcode/leetcode/screenshots/2360_accepted.png" alt="Longest cycle in a graph">
+            <li><a href="https://leetcode.com/problems/redundant-connection-ii/">685 (Difícil) - Redundant connection II</a></li>
+            <img src="https://github.com/projeto-de-algoritmos-2024/Grafos1_GoMazing/blob/leetcode/leetcode/screenshots/685_accepted.png" alt="Redundant connection II">
+            <li><a href="https://leetcode.com/problems/freedom-trail/">514 (Difícil) - Freedom trail</a></li>
+            <img src="https://github.com/projeto-de-algoritmos-2024/Grafos1_GoMazing/blob/leetcode/leetcode/screenshots/514_accepted.png" alt="Freedom trail">
+        </ul>
 
-    <h2>Instalação</h2>
-    <p><strong>Linguagem</strong>: Go, Python</p>
+        <h2>Instalação</h2>
+        <p><strong>Linguagem</strong>: Go, Python</p>
 
-    <h3>1. Clone o repositório</h3>
-    <pre><code>git clone https://github.com/projeto-de-algoritmos-2024/Grafos1_GoMazing</code></pre>
+        <h3>1. Clone o repositório</h3>
+        <pre><code>git clone https://github.com/projeto-de-algoritmos-2024/Grafos1_GoMazing</code></pre>
 
-    <h3>2. Go</h3>
-    <pre><code>go mod init
+        <h3>2. Go</h3>
+        <pre><code>go mod init
 go mod tidy
 go run 2497_star_sum_med.go 
 go run 685_redundant_connection_hd.go
 go run 514_freedom_trail_hd.go</code></pre>
 
-    <h3>3. Python</h3>
-    <pre><code>python3 2876_visited_nodes_hd.py
+        <h3>3. Python</h3>
+        <pre><code>python3 2876_visited_nodes_hd.py
 python3 2360_longest_cycle_hd.py</code></pre>
 
-    <h2>Uso</h2>
-    <p>Para aplicar os casos de teste (in e out), basta acessar o link referente ao exercício no LeetCode e inserí-los no prompt de comando, também é possível gerar novos casos de teste, desde que cumpram os requisitos do exercício em questão.</p>
+        <h2>Uso</h2>
+        <p>Para aplicar os casos de teste (in e out), basta acessar o link referente ao exercício no LeetCode e inserí-los no prompt de comando, também é possível gerar novos casos de teste, desde que cumpram os requisitos do exercício em questão.</p>
 
-    <h2>Apresentação</h2>
-    <p>A apresentação da entrega pode ser visualizada <a href="#">aqui</a>.</p>
+        <h2>Apresentação</h2>
+        <p>A apresentação da entrega pode ser visualizada <a href="#">aqui</a>.</p>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 Pedro Menezes Rodiguero. All rights reserved.</p>
+    </div>
 </body>
 </html>
