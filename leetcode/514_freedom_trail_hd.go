@@ -19,11 +19,14 @@ func findRotateSteps(ring string, key string) int {
 		for j := 0; j < n; j++ {
 			if ring[j] == key[i] {
 				for k := 0; k < n; k++ {
-					if ring[k] == key[i+1] {
+					if i+1 < m && ring[k] == key[i+1] {
 						diff := int(math.Abs(float64(j - k)))
 						step := min(diff, n-diff)
 						dp[i][j] = min(dp[i][j], dp[i+1][k]+step)
 					}
+				}
+				if i == m-1 {
+					dp[i][j] = 0
 				}
 			}
 		}
