@@ -39,7 +39,7 @@ func findRedundantDirectedConnection(edges [][]int) []int {
 	}
 
 	for _, edge := range edges {
-		if edge == second {
+		if len(second) > 0 && edge[0] == second[0] && edge[1] == second[1] {
 			continue
 		}
 		if !union(edge[0], edge[1]) {
@@ -47,10 +47,10 @@ func findRedundantDirectedConnection(edges [][]int) []int {
 		}
 	}
 
-	if second == nil {
+	if len(second) == 0 {
 		return last
 	}
-	if last == nil {
+	if len(last) == 0 {
 		return second
 	}
 	return first
