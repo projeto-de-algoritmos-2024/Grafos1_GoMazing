@@ -38,7 +38,7 @@ func maxStarSum(vals []int, edges [][]int, k int) int {
 	return maxSum
 }
 
-func main() {
+func mainLeet() {
 	var n, m, k int
 	fmt.Scan(&n, &m, &k)
 
@@ -54,4 +54,8 @@ func main() {
 	}
 
 	fmt.Println(maxStarSum(vals, edges, k))
+}
+
+func main() {
+	mainLeet()
 }
