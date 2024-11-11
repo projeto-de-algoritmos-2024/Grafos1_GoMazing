@@ -7,19 +7,21 @@ class Solution:
         visited = [-1] * n
         longest = -1
 
-        def dfs(node, depth):
+        def dfs(node, depth, path):
             nonlocal longest
             if visited[node] != -1:
-                if visited[node] >= depth:
-                    longest = max(longest, depth - visited[node])
+                if node in path:
+                    cycle_length = depth - path[node]
+                    longest = max(longest, cycle_length)
                 return
             visited[node] = depth
+            path[node] = depth
             if edges[node] != -1:
-                dfs(edges[node], depth + 1)
-            visited[node] = -2
+                dfs(edges[node], depth + 1, path)
+            path.pop(node)
 
         for i in range(n):
             if visited[i] == -1:
-                dfs(i, 0)
+                dfs(i, 0, {})
 
         return longest
