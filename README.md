@@ -14,19 +14,19 @@ Para desenvolver o conteúdo abordado no tópico de Grafos1, resolvi 5 exercíci
 ## Screenshots
 
 - [2497 (Médio) - Maximum star sum of a graph](https://leetcode.com/problems/maximum-star-sum-of-a-graph/description/)
-<img width="734" alt="Maximum star sum of a graph" src="screenshots/2497_accepted.png">
+<img width="734" alt="Maximum star sum of a graph" src="https://github.com/projeto-de-algoritmos-2024/Grafos1_GoMazing/blob/leetcode/leetcode/screenshots/2497_accepted.png">
 
 - [2876 (Difícil) - Count visited nodes in a directed graph](https://leetcode.com/problems/count-visited-nodes-in-a-directed-graph/)
-<img width="734" alt="Count visited nodes in a directed graph" src="screenshots/2876_accepted.png">
+<img width="734" alt="Count visited nodes in a directed graph" src="[screenshots/2876_accepted.png](https://github.com/projeto-de-algoritmos-2024/Grafos1_GoMazing/blob/leetcode/leetcode/screenshots/2876_accepted.png)">
 
 - [2360 (Difícil) - Longest cycle in a graph](https://leetcode.com/problems/longest-cycle-in-a-graph/)
-<img width="734" alt="Longest cycle in a graph" src="screenshots/2360_accepted.png">
+<img width="734" alt="Longest cycle in a graph" src="[screenshots/2360_accepted.png](https://github.com/projeto-de-algoritmos-2024/Grafos1_GoMazing/blob/leetcode/leetcode/screenshots/2360_accepted.png)">
 
 - [685 (Difícil) - Redundant connection II](https://leetcode.com/problems/redundant-connection-ii/)
-<img width="734" alt="Redundant connection II" src="screenshots/685_accepted.png">
+<img width="734" alt="Redundant connection II" src="https://github.com/projeto-de-algoritmos-2024/Grafos1_GoMazing/blob/leetcode/leetcode/screenshots/685_accepted.png">
 
 - [514 (Difícil) - Freedom trail](https://leetcode.com/problems/freedom-trail/)
-<img width="734" alt="Freedom trail" src="screenshots/514_accepted.png">
+<img width="734" alt="Freedom trail" src="[screenshots/514_accepted.png](https://github.com/projeto-de-algoritmos-2024/Grafos1_GoMazing/blob/leetcode/leetcode/screenshots/514_accepted.png)">
 
 ## Instalação 
 **Linguagem**: Go, Python<br>
