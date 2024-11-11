@@ -22,27 +22,11 @@ func findRedundantDirectedConnection(edges [][]int) []int {
 		parent[i] = i
 	}
 
-	find := func(x int) int {
-		if parent[x] != x {
-			parent[x] = find(parent[x])
-		}
-		return parent[x]
-	}
-
-	union := func(x, y int) bool {
-		rootX, rootY := find(x), find(y)
-		if rootX == rootY {
-			return false
-		}
-		parent[rootX] = rootY
-		return true
-	}
-
 	for _, edge := range edges {
 		if len(second) > 0 && edge[0] == second[0] && edge[1] == second[1] {
 			continue
 		}
-		if !union(edge[0], edge[1]) {
+		if !union(edge[0], edge[1], parent) {
 			last = edge
 		}
 	}
@@ -54,4 +38,20 @@ func findRedundantDirectedConnection(edges [][]int) []int {
 		return second
 	}
 	return first
+}
+
+func find(x int, parent []int) int {
+	if parent[x] != x {
+		parent[x] = find(parent[x], parent)
+	}
+	return parent[x]
+}
+
+func union(x, y int, parent []int) bool {
+	rootX, rootY := find(x, parent), find(y, parent)
+	if rootX == rootY {
+		return false
+	}
+	parent[rootX] = rootY
+	return true
 }
