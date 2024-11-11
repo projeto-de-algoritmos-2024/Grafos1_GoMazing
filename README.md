@@ -1,104 +1,62 @@
-# GoMazing
+# Lista de Exercícios do LeetCode
 
 **Número da Lista**: 57<br>
 **Conteúdo da Disciplina**: Grafos 1<br>
 
 ## Alunos
+|Matrícula | Aluno |
+| -- | -- |
+| 19/0139323  |  Pedro Menezes Rodiguero |
 
-| Matrícula   | Aluno                       |
-| ----------- | --------------------------- |
-| 19/0139323  | Pedro Menezes Rodiguero     |
-| xx/xxxxxx   | xxxx xxxx xxxxx             |
-
-## Sobre
-
-GoMazing is a project that demonstrates various maze generation algorithms and a flood fill algorithm. The project includes a web interface where users can generate mazes using different algorithms and visualize the flood fill algorithm in action.
+## Sobre 
+Para desenvolver o conteúdo abordado no tópico de Grafos1, resolvi 5 exercícios do LeetCode, sendo eles, 4 de nível difícil e 1 de nível médio.
 
 ## Screenshots
 
-![Maze Generation](screenshots/maze_generation.png)
-![Flood Fill](screenshots/flood_fill.png)
+- [2497 (Médio) - Maximum star sum of a graph](https://leetcode.com/problems/maximum-star-sum-of-a-graph/description/)
+<img width="734" alt="Maximum star sum of a graph" src="screenshots/2497_accepted.png">
 
-## Instalação
+- [2876 (Difícil) - Count visited nodes in a directed graph](https://leetcode.com/problems/count-visited-nodes-in-a-directed-graph/)
+<img width="734" alt="Count visited nodes in a directed graph" src="screenshots/2876_accepted.png">
 
-**Linguagem**: Go, JavaScript (React)<br>
-**Framework**: React, Gorilla Mux
+- [2360 (Difícil) - Longest cycle in a graph](https://leetcode.com/problems/longest-cycle-in-a-graph/)
+<img width="734" alt="Longest cycle in a graph" src="screenshots/2360_accepted.png">
 
-### Pré-requisitos
+- [685 (Difícil) - Redundant connection II](https://leetcode.com/problems/redundant-connection-ii/)
+<img width="734" alt="Redundant connection II" src="screenshots/685_accepted.png">
 
-- [Go](https://golang.org/doc/install) (versão 1.21.0 ou superior)
-- [Node.js](https://nodejs.org/) (versão 14.0.0 ou superior)
-- [npm](https://www.npmjs.com/get-npm) (versão 6.0.0 ou superior)
+- [514 (Difícil) - Freedom trail](https://leetcode.com/problems/freedom-trail/)
+<img width="734" alt="Freedom trail" src="screenshots/514_accepted.png">
 
-### Passos para instalação
+## Instalação 
+**Linguagem**: Go, Python<br>
 
-1. Clone o repositório:
+## 1. Clone o repositório 
 
-```sh
-git clone https://github.com/projeto-de-algoritmos-2024/Grafos1_GoMazing.git
-cd Grafos1_GoMazing
+```bash
+git clone https://github.com/projeto-de-algoritmos-2024/Grafos1_GoMazing
 ```
-2. Instale as dependências do backend:
-```sh
+
+### 2. Go
+
+```bash
+go mod init
 go mod tidy
-```
-3. Instale as dependências do frontend:
-```sh
-cd gomazing-frontend
-npm install
+go run 2497_star_sum_med.go 
+go run 685_redundant_connection_hd.go
+go run 514_freedom_trail_hd.go
 ```
 
-### Uso
+### 3. Python
 
-#### Executando o projeto
-1. Inicie a aplicação
-```sh
-./run.sh
+```bash
+python3 2876_visited_nodes_hd.py
+python3 2360_longest_cycle_hd.py
 ```
 
-### Funcionalidades
-- Maze Generation: Gere labirintos usando diferentes algoritmos (DFS, Prim's, BFS).
-- Flood Fill: Visualize o algoritmo de preenchimento de área em ação.
+## Uso 
+Para aplicar os casos de teste (in e out), basta acessar o link referente ao exercício no LeetCode e inserí-los no prompt de comando, também é possível gerar novos casos de teste, desde que cumpram os requisitos do exercício em questão.
 
-### Estrutura do projeto
-```sh
-.gitignore
-algorithms/
-    [bfs.go](http://_vscodecontentref_/2)
-    [dfs.go](http://_vscodecontentref_/3)
-    [helpers.go](http://_vscodecontentref_/4)
-    [prim.go](http://_vscodecontentref_/6)
-    [solve.go](http://_vscodecontentref_/7)
-[go.mod](http://_vscodecontentref_/8)
-[go.sum](http://_vscodecontentref_/9)
-gomazing-frontend/
-    .gitignore
-    [package.json](http://_vscodecontentref_/10)
-    public/
-        [index.html](http://_vscodecontentref_/11)
-        [manifest.json](http://_vscodecontentref_/12)
-        [robots.txt](http://_vscodecontentref_/13)
-    [README.md](http://_vscodecontentref_/14)
-    src/
-        [App.css](http://_vscodecontentref_/15)
-        [App.js](http://_vscodecontentref_/16)
-        [App.test.js](http://_vscodecontentref_/17)
-        [FloodFillApp.css](http://_vscodecontentref_/18)
-        [FloodFillApp.js](http://_vscodecontentref_/19)
-        [index.css](http://_vscodecontentref_/20)
-        [index.js](http://_vscodecontentref_/21)
-        [MazeApp.css](http://_vscodecontentref_/22)
-        [MazeApp.js](http://_vscodecontentref_/23)
-        [NodeComponent.css](http://_vscodecontentref_/24)
-        [NodeComponent.js](http://_vscodecontentref_/25)
-        [reportWebVitals.js](http://_vscodecontentref_/26)
-        [setupTests.js](http://_vscodecontentref_/27)
-[README.md](http://_vscodecontentref_/28)
-[run.sh](http://_vscodecontentref_/29)
-[server.go](http://_vscodecontentref_/30)
-```
+## Apresentação 
 
-### Outros
-Quaisquer outras informações sobre seu projeto podem ser descritas abaixo.
-
-- Licença: MIT
+A apresentação da entrega pode ser visualizada [aqui]().
