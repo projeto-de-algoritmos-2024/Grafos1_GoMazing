@@ -2,6 +2,7 @@
   "name": "gomazing-frontend",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://projeto-de-algoritmos-2024.github.io/Grafos1_GoMazing/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -20,7 +21,9 @@
     "eject": "react-scripts eject",
     "start:backend": "go run ../server.go",
     "start:frontend": "react-scripts start",
-    "start:both": "concurrently \"npm run start:backend\" \"npm run start:frontend\""
+    "start:both": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -42,6 +45,7 @@
   },
   "devDependencies": {
     "concurrently": "^9.1.0",
+    "gh-pages": "^3.2.3",
     "@babel/plugin-proposal-private-property-in-object": "^7.14.5"
   }
 }
